@@ -234,12 +234,12 @@ class General(commands.Cog, name="general-slash"):
             await interaction.send(embed=embed)
 
     @commands.slash_command(
-        name="8ball",
-        description="Ask any question to the bot.",
+        name="pergunta",
+        description="Faça uma pergunta à Sophia.",
         options=[
             Option(
-                name="question",
-                description="The question you want to ask.",
+                name="pergunta",
+                description="Escreva a sua pergunta. ",
                 type=OptionType.string,
                 required=True
             )
@@ -258,12 +258,12 @@ class General(commands.Cog, name="general-slash"):
                    "Cannot predict now.", "Concentrate and ask again later.", "Don't count on it.", "My reply is no.",
                    "My sources say no.", "Outlook not so good.", "Very doubtful."]
         embed = disnake.Embed(
-            title="**My Answer:**",
+            title="**Minha resposta:**",
             description=f"{random.choice(answers)}",
             color=0x9C84EF
         )
         embed.set_footer(
-            text=f"The question was: {question}"
+            text=f"A pergunta foi: {question}"
         )
         await interaction.send(embed=embed)
 
