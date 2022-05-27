@@ -84,7 +84,7 @@ class Owner(commands.Cog, name="owner-slash"):
 
     @commands.slash_command(
         name="blacklist",
-        description="Get the list of all blacklisted users.",
+        description="lista de todos os usuários na blacklist",
     )
     @checks.is_owner()
     async def blacklist(self, interaction: ApplicationCommandInteraction) -> None:
@@ -97,11 +97,11 @@ class Owner(commands.Cog, name="owner-slash"):
     @blacklist.sub_command(
         base="blacklist",
         name="add",
-        description="Lets you add a user from not being able to use the bot.",
+        description="Adicione um usuário à blacklist",
         options=[
             Option(
                 name="user",
-                description="The user you want to add to the blacklist.",
+                description="Usuário que você deseja adicionar na blacklist",
                 type=OptionType.user,
                 required=True
             )
@@ -120,27 +120,27 @@ class Owner(commands.Cog, name="owner-slash"):
                 blacklist = json.load(file)
             if user_id in blacklist['ids']:
                 embed = disnake.Embed(
-                    title="Error!",
-                    description=f"**{user.name}** is already in the blacklist.",
+                    title="Erro!",
+                    description=f"**{user.name}** já está na blacklist",
                     color=0xE02B2B
                 )
                 return await interaction.send(embed=embed)
             json_manager.add_user_to_blacklist(user_id)
             embed = disnake.Embed(
-                title="User Blacklisted",
-                description=f"**{user.name}** has been successfully added to the blacklist",
+                title="Usuário na blacklist",
+                description=f"**{user.name}** foi adicionado à blacklist, respeite as regras!",
                 color=0x9C84EF
             )
             with open("blacklist.json") as file:
                 blacklist = json.load(file)
             embed.set_footer(
-                text=f"There are now {len(blacklist['ids'])} users in the blacklist"
+                text=f"Há agora {len(blacklist['ids'])} usuários na blacklist"
             )
             await interaction.send(embed=embed)
         except Exception as exception:
             embed = disnake.Embed(
-                title="Error!",
-                description=f"An unknown error occurred when trying to add **{user.name}** to the blacklist.",
+                title="Erro!",
+                description=f"Ocorreu um erro desconhecido ao tentar adicionar **{user.name}** à blacklist.",
                 color=0xE02B2B
             )
             await interaction.send(embed=embed)
@@ -149,11 +149,11 @@ class Owner(commands.Cog, name="owner-slash"):
     @blacklist.sub_command(
         base="blacklist",
         name="remove",
-        description="Lets you remove a user from not being able to use the bot.",
+        description="Remova um usuário da blacklist.",
         options=[
             Option(
                 name="user",
-                description="The user you want to remove from the blacklist.",
+                description="Usuário que você deseja remover da blacklist.",
                 type=OptionType.user,
                 required=True
             )
@@ -169,27 +169,27 @@ class Owner(commands.Cog, name="owner-slash"):
         try:
             json_manager.remove_user_from_blacklist(user.id)
             embed = disnake.Embed(
-                title="User removed from blacklist",
-                description=f"**{user.name}** has been successfully removed from the blacklist",
+                title="Usuário removido da blacklist",
+                description=f"**{user.name}** foi removido da blacklist, aproveite essa segunda chance",
                 color=0x9C84EF
             )
             with open("blacklist.json") as file:
                 blacklist = json.load(file)
             embed.set_footer(
-                text=f"There are now {len(blacklist['ids'])} users in the blacklist"
+                text=f"Há agora {len(blacklist['ids'])} usuários na blacklist"
             )
             await interaction.send(embed=embed)
         except ValueError:
             embed = disnake.Embed(
-                title="Error!",
-                description=f"**{user.name}** is not in the blacklist.",
+                title="Erro!",
+                description=f"**{user.name}** não está na blacklist.",
                 color=0xE02B2B
             )
             await interaction.send(embed=embed)
         except Exception as exception:
             embed = disnake.Embed(
-                title="Error!",
-                description=f"An unknown error occurred when trying to add **{user.name}** to the blacklist.",
+                title="Erro!",
+                description=f"Um erro desconhecido ocorreu a tentar adicionar **{user.name}** à blacklist.",
                 color=0xE02B2B
             )
             await interaction.send(embed=embed)

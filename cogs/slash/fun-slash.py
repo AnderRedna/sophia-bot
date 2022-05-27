@@ -21,12 +21,12 @@ class Choice(disnake.ui.View):
         super().__init__()
         self.choice = None
 
-    @disnake.ui.button(label="Heads", style=disnake.ButtonStyle.blurple)
+    @disnake.ui.button(label="Cara", style=disnake.ButtonStyle.blurple)
     async def confirm(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
         self.choice = button.label.lower()
         self.stop()
 
-    @disnake.ui.button(label="Tails", style=disnake.ButtonStyle.blurple)
+    @disnake.ui.button(label="Coroa", style=disnake.ButtonStyle.blurple)
     async def cancel(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
         self.choice = button.label.lower()
         self.stop()
@@ -127,8 +127,8 @@ class Fun(commands.Cog, name="fun-slash"):
                 await interaction.send(embed=embed)
 
     @commands.slash_command(
-        name="coinflip",
-        description="Make a coin flip, but give your bet before."
+        name="moeda",
+        description="Vamos jogar a moeda, lembre-se, isso é sagrado!!."
     )
     @checks.not_blacklisted()
     async def coinflip(self, interaction: ApplicationCommandInteraction) -> None:
@@ -138,21 +138,21 @@ class Fun(commands.Cog, name="fun-slash"):
         """
         buttons = Choice()
         embed = disnake.Embed(
-            description="What is your bet?",
+            description="Cara ou Coroa??",
             color=0x9C84EF
         )
         await interaction.send(embed=embed, view=buttons)
         await buttons.wait()  # We wait for the user to click a button.
-        result = random.choice(["heads", "tails"])
+        result = random.choice(["cara", "coroa"])
         if buttons.choice == result:
             # User guessed correctly
             embed = disnake.Embed(
-                description=f"Correct! You guessed `{buttons.choice}` and I flipped the coin to `{result}`.",
+                description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`, vai limpar esse cu!.",
                 color=0x9C84EF
             )
         else:
             embed = disnake.Embed(
-                description=f"Woops! You guessed `{buttons.choice}` and I flipped the coin to `{result}`, better luck next time!",
+                description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`, KAKEGURUI!!.",
                 color=0xE02B2B
             )
         await interaction.edit_original_message(embed=embed, view=None)
