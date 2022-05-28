@@ -101,6 +101,7 @@ class Fun(commands.Cog, name="fun-slash"):
 
     @commands.slash_command(
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         name="randomfact",
         description="Get a random fact."
     )
@@ -131,6 +132,8 @@ class Fun(commands.Cog, name="fun-slash"):
         name="coinflip",
         description="Make a coin flip, but give your bet before."
 =======
+=======
+>>>>>>> Stashed changes
         name="moeda",
         description="Vamos jogar a moeda, lembre-se, isso é sagrado!!."
 >>>>>>> Stashed changes
@@ -153,7 +156,11 @@ class Fun(commands.Cog, name="fun-slash"):
             # User guessed correctly
             embed = disnake.Embed(
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 description=f"Correct! You guessed `{buttons.choice}` and I flipped the coin to `{result}`.",
+=======
+                description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`... Na próxima vez eu ganho!!!.",
+>>>>>>> Stashed changes
 =======
                 description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`... Na próxima vez eu ganho!!!.",
 >>>>>>> Stashed changes
@@ -162,7 +169,11 @@ class Fun(commands.Cog, name="fun-slash"):
         else:
             embed = disnake.Embed(
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
                 description=f"Woops! You guessed `{buttons.choice}` and I flipped the coin to `{result}`, better luck next time!",
+=======
+                description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`.",
+>>>>>>> Stashed changes
 =======
                 description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`.",
 >>>>>>> Stashed changes
