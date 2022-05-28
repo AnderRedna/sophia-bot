@@ -21,12 +21,12 @@ class Choice(disnake.ui.View):
         super().__init__()
         self.choice = None
 
-    @disnake.ui.button(label="Heads", style=disnake.ButtonStyle.blurple)
+    @disnake.ui.button(label="Cara", style=disnake.ButtonStyle.blurple)
     async def confirm(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
         self.choice = button.label.lower()
         self.stop()
 
-    @disnake.ui.button(label="Tails", style=disnake.ButtonStyle.blurple)
+    @disnake.ui.button(label="Coroa", style=disnake.ButtonStyle.blurple)
     async def cancel(self, button: disnake.ui.Button, interaction: disnake.MessageInteraction):
         self.choice = button.label.lower()
         self.stop()
@@ -100,83 +100,32 @@ class Fun(commands.Cog, name="fun-slash"):
         self.bot = bot
 
     @commands.slash_command(
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        name="randomfact",
-        description="Get a random fact."
-    )
-    @checks.not_blacklisted()
-    async def randomfact(self, interaction: ApplicationCommandInteraction) -> None:
-        """
-        Get a random fact.
-        :param interaction: The application command interaction.
-        """
-        # This will prevent your bot from stopping everything when doing a web request - see: https://discordpy.readthedocs.io/en/stable/faq.html#how-do-i-make-a-web-request
-        async with aiohttp.ClientSession() as session:
-            async with session.get("https://uselessfacts.jsph.pl/random.json?language=en") as request:
-                if request.status == 200:
-                    data = await request.json()
-                    embed = disnake.Embed(
-                        description=data["text"],
-                        color=0xD75BF4
-                    )
-                else:
-                    embed = disnake.Embed(
-                        title="Error!",
-                        description="There is something wrong with the API, please try again later",
-                        color=0xE02B2B
-                    )
-                await interaction.send(embed=embed)
-
-    @commands.slash_command(
-        name="coinflip",
-        description="Make a coin flip, but give your bet before."
-=======
-=======
->>>>>>> Stashed changes
         name="moeda",
         description="Vamos jogar a moeda, lembre-se, isso é sagrado!!."
->>>>>>> Stashed changes
     )
     @checks.not_blacklisted()
-    async def coinflip(self, interaction: ApplicationCommandInteraction) -> None:
+    async def moeda(self, interaction: ApplicationCommandInteraction) -> None:
         """
         Make a coin flip, but give your bet before.
         :param interaction: The application command interaction.
         """
         buttons = Choice()
         embed = disnake.Embed(
-            description="What is your bet?",
+            description="Qual sua aposta?",
             color=0x9C84EF
         )
         await interaction.send(embed=embed, view=buttons)
         await buttons.wait()  # We wait for the user to click a button.
-        result = random.choice(["heads", "tails"])
+        result = random.choice(["Coroa", "Cara"])
         if buttons.choice == result:
             # User guessed correctly
             embed = disnake.Embed(
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                description=f"Correct! You guessed `{buttons.choice}` and I flipped the coin to `{result}`.",
-=======
                 description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`... Na próxima vez eu ganho!!!.",
->>>>>>> Stashed changes
-=======
-                description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`... Na próxima vez eu ganho!!!.",
->>>>>>> Stashed changes
                 color=0x9C84EF
             )
         else:
             embed = disnake.Embed(
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                description=f"Woops! You guessed `{buttons.choice}` and I flipped the coin to `{result}`, better luck next time!",
-=======
-                description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`.",
->>>>>>> Stashed changes
-=======
-                description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`.",
->>>>>>> Stashed changes
+                description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`. Eu ganhei hihi.",
                 color=0xE02B2B
             )
         await interaction.edit_original_message(embed=embed, view=None)
