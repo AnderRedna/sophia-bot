@@ -100,6 +100,7 @@ class Fun(commands.Cog, name="fun-slash"):
         self.bot = bot
 
     @commands.slash_command(
+<<<<<<< Updated upstream
         name="randomfact",
         description="Get a random fact."
     )
@@ -129,6 +130,10 @@ class Fun(commands.Cog, name="fun-slash"):
     @commands.slash_command(
         name="coinflip",
         description="Make a coin flip, but give your bet before."
+=======
+        name="moeda",
+        description="Vamos jogar a moeda, lembre-se, isso é sagrado!!."
+>>>>>>> Stashed changes
     )
     @checks.not_blacklisted()
     async def coinflip(self, interaction: ApplicationCommandInteraction) -> None:
@@ -147,12 +152,20 @@ class Fun(commands.Cog, name="fun-slash"):
         if buttons.choice == result:
             # User guessed correctly
             embed = disnake.Embed(
+<<<<<<< Updated upstream
                 description=f"Correct! You guessed `{buttons.choice}` and I flipped the coin to `{result}`.",
+=======
+                description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`... Na próxima vez eu ganho!!!.",
+>>>>>>> Stashed changes
                 color=0x9C84EF
             )
         else:
             embed = disnake.Embed(
+<<<<<<< Updated upstream
                 description=f"Woops! You guessed `{buttons.choice}` and I flipped the coin to `{result}`, better luck next time!",
+=======
+                description=f"Você escolheu `{buttons.choice}`.  a moeda caiu em `{result}`.",
+>>>>>>> Stashed changes
                 color=0xE02B2B
             )
         await interaction.edit_original_message(embed=embed, view=None)

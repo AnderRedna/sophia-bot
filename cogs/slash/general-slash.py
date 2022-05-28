@@ -98,7 +98,7 @@ class General(commands.Cog, name="general-slash"):
 
     @commands.slash_command(
         name="serverinfo",
-        description="Get some useful (or not) information about the server.",
+        description="Consiga algumas informações sobre o server.",
     )
     @checks.not_blacklisted()
     async def serverinfo(self, interaction: ApplicationCommandInteraction) -> None:
@@ -106,11 +106,6 @@ class General(commands.Cog, name="general-slash"):
         Get some useful (or not) information about the server.
         :param interaction: The application command interaction.
         """
-        roles = [role.name for role in interaction.guild.roles]
-        if len(roles) > 50:
-            roles = roles[:50]
-            roles.append(f">>>> Displaying[50/{len(roles)}] Roles")
-        roles = ", ".join(roles)
 
         embed = disnake.Embed(
             title="**Nome do servidor:**",
@@ -136,7 +131,7 @@ class General(commands.Cog, name="general-slash"):
 
     @commands.slash_command(
         name="site",
-        description="Get some useful (or not) information about the server.",
+        description="Conheça mais sobre o nosso site!",
     )
     @checks.not_blacklisted()
     async def site(self, interaction: ApplicationCommandInteraction) -> None:
@@ -144,12 +139,6 @@ class General(commands.Cog, name="general-slash"):
         Get some useful (or not) information about the server.
         :param interaction: The application command interaction.
         """
-        roles = [role.name for role in interaction.guild.roles]
-        if len(roles) > 50:
-            roles = roles[:50]
-            roles.append(f">>>> Displaying[50/{len(roles)}] Roles")
-        roles = ", ".join(roles)
-
         embed = disnake.Embed(
             title="**Nome do servidor:**",
             description=f"{interaction.guild}",
@@ -173,21 +162,19 @@ class General(commands.Cog, name="general-slash"):
         await interaction.send(embed=embed)
 
 
-
-
     @commands.slash_command(
-        name="ping",
-        description="Verificar se estou viva.",
+        name="soph",
+        description="Verifique se estou acordada.",
     )
     @checks.not_blacklisted()
-    async def ping(self, interaction: ApplicationCommandInteraction) -> None:
+    async def soph(self, interaction: ApplicationCommandInteraction) -> None:
         """
         Check if the bot is alive.
         :param interaction: The application command interaction.
         """
         embed = disnake.Embed(
-            title="🏓 Pong!",
-            description=f"A latência é {round(self.bot.latency * 1000)}ms.",
+            title="<:nescau:978813995836387408> Estou aqui!!",
+            description=f"Yup! Quer um nescau?",
             color=0x9C84EF
         )
         await interaction.send(embed=embed)

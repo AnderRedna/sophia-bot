@@ -4,6 +4,8 @@ from helpers import checks
 import disnake
 import random
 import requests
+import time
+import urllib.parse
 class Template(commands.Cog, name="template-slash"):
     def __init__(self, bot):
         self.bot = bot
@@ -81,8 +83,6 @@ class Template(commands.Cog, name="template-slash"):
     @checks.not_blacklisted()
     async def presidente(self, interaction: ApplicationCommandInteraction):      
         await interaction.send("É BOLSONARO OU NÃO É?")
-
-
 
 def setup(bot):
     bot.add_cog(Template(bot))
