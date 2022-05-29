@@ -171,7 +171,7 @@ class Moderation(commands.Cog, name="moderation-normal"):
 
     @commands.command(
         name="purge",
-        description="Delete a number of messages.",
+        description="Delete um número de mensagens.",
     )
     @commands.has_guild_permissions(manage_messages=True)
     @checks.not_blacklisted()
@@ -185,16 +185,16 @@ class Moderation(commands.Cog, name="moderation-normal"):
             amount = int(amount)
         except:
             embed = disnake.Embed(
-                title="Error!",
-                description=f"`{amount}` is not a valid number.",
+                title="Erro!",
+                description=f"`{amount}` insira um número válido.",
                 color=0xE02B2B
             )
             await context.send(embed=embed)
             return
         if amount < 1:
             embed = disnake.Embed(
-                title="Error!",
-                description=f"`{amount}` is not a valid number.",
+                title="Erro!",
+                description=f"`{amount}` insira um número válido.",
                 color=0xE02B2B
             )
             await context.send(embed=embed)
@@ -202,7 +202,7 @@ class Moderation(commands.Cog, name="moderation-normal"):
         purged_messages = await context.channel.purge(limit=amount)
         embed = disnake.Embed(
             title="Chat Cleared!",
-            description=f"**{context.author}** cleared **{len(purged_messages)}** messages!",
+            description=f"**{context.author}** foram limpas **{len(purged_messages)}** mensagens!",
             color=0x9C84EF
         )
         await context.send(embed=embed)
