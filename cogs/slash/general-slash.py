@@ -99,7 +99,7 @@ class General(commands.Cog, name="general-slash"):
 
     @commands.slash_command(
         name="serverinfo",
-        description="Get some useful (or not) information about the server.",
+        description="Obtenha algumas informações úteis (ou não) sobre o servidor.",
     )
     @checks.not_blacklisted()
     async def serverinfo(self, interaction: ApplicationCommandInteraction) -> None:
@@ -133,7 +133,7 @@ class General(commands.Cog, name="general-slash"):
 
     @commands.slash_command(
         name="site",
-        description="Get some useful (or not) information about the server.",
+        description="Obtenha o link de acesso para o nosso site.",
     )
     @checks.not_blacklisted()
     async def site(self, interaction: ApplicationCommandInteraction) -> None:
