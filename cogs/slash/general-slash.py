@@ -8,6 +8,7 @@ Version: 4.1
 
 import platform
 import random
+from turtle import heading
 
 import aiohttp
 import disnake
@@ -121,10 +122,6 @@ class General(commands.Cog, name="general-slash"):
             url=interaction.guild.icon.url
         )
         embed.add_field(
-            name="Site:",
-            value="http://MangaToon.com.br"
-        )
-        embed.add_field(
             name="Membros",
             value=interaction.guild.member_count
         )
@@ -151,25 +148,14 @@ class General(commands.Cog, name="general-slash"):
         roles = ", ".join(roles)
 
         embed = disnake.Embed(
-            title="**Nome do servidor:**",
-            description=f"{interaction.guild}",
+            title="**Site: **",
+            description=f"http://MangaToon.com.br",
             color=0x9C84EF
         )
         embed.set_thumbnail(
-            url=interaction.guild.icon.url
+            url='https://img.anime2you.de/2022/05/Marin-Kitagawa.jpg'          
         )
-        embed.add_field(
-            name="Site:",
-            value="http://MangaToon.com.br"
-        )
-        embed.add_field(
-            name="Membros",
-            value=interaction.guild.member_count
-        )
-        embed.add_field(
-            name="Canais de Texto/Voz",
-            value=f"{len(interaction.guild.channels)}"
-        )
+       
         await interaction.send(embed=embed)
 
 
@@ -214,26 +200,6 @@ class General(commands.Cog, name="general-slash"):
             await interaction.send(embed=embed)
 
     @commands.slash_command(
-        name="server",
-        description="Get the invite link of the discord server of the bot for some support.",
-    )
-    @checks.not_blacklisted()
-    async def server(self, interaction: ApplicationCommandInteraction) -> None:
-        """
-        Get the invite link of the discord server of the bot for some support.
-        :param interaction: The application command interaction.
-        """
-        embed = disnake.Embed(
-            description=f"Join the support server for the bot by clicking [here](https://discord.gg/mTBrXyWxAF).",
-            color=0xD75BF4
-        )
-        try:
-            await interaction.author.send(embed=embed)
-            await interaction.send("I sent you a private message!")
-        except disnake.Forbidden:
-            await interaction.send(embed=embed)
-
-    @commands.slash_command(
         name="pergunta",
         description="Faça uma pergunta à Sophia.",
         options=[
@@ -265,37 +231,6 @@ class General(commands.Cog, name="general-slash"):
         embed.set_footer(
             text=f"A pergunta foi: {question}"
         )
-        await interaction.send(embed=embed)
-
-    @commands.slash_command(
-        name="bitcoin",
-        description="Get the current price of bitcoin.",
-    )
-    @checks.not_blacklisted()
-    async def bitcoin(self, interaction: ApplicationCommandInteraction) -> None:
-        """
-        Get the current price of bitcoin.
-        :param interaction: The application command interaction.
-        """
-        # This will prevent your bot from stopping everything when doing a web request - see: https://discordpy.readthedocs.io/en/stable/faq.html#how-do-i-make-a-web-request
-        async with aiohttp.ClientSession() as session:
-            async with session.get("https://api.coindesk.com/v1/bpi/currentprice/BTC.json") as request:
-                if request.status == 200:
-                    data = await request.json(
-                        content_type="application/javascript")  # For some reason the returned content is of type JavaScript
-                    embed = disnake.Embed(
-                        title="Preço do Bitcoin:",
-                        description=f"O preço atual do bitcoin é {data['bpi']['USD']['rate']} :dolares rs.:",
-                        color=0x9C84EF
-                    )
-                else:
-                    embed = disnake.Embed(
-                        title="Error!",
-                        description="There is something wrong with the API, please try again later",
-                        color=0xE02B2B
-                    )
-                await interaction.send(embed=embed)
-
-
+        await interaction.send(embed=embed) 
 def setup(bot):
     bot.add_cog(General(bot))

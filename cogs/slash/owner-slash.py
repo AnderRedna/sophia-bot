@@ -18,70 +18,6 @@ from helpers import json_manager, checks
 class Owner(commands.Cog, name="owner-slash"):
     def __init__(self, bot):
         self.bot = bot
-
-    @commands.slash_command(
-        name="shutdown",
-        description="Make the bot shutdown.",
-    )
-    @checks.is_owner()
-    async def shutdown(self, interaction: ApplicationCommandInteraction) -> None:
-        """
-        Makes the bot shutdown.
-        :param interaction: The application command interaction.
-        """
-        embed = disnake.Embed(
-            description="Shutting down. Bye! :wave:",
-            color=0x9C84EF
-        )
-        await interaction.send(embed=embed)
-        await self.bot.close()
-
-    @commands.slash_command(
-        name="say",
-        description="The bot will say anything you want.",
-        options=[
-            Option(
-                name="message",
-                description="The message you want me to repeat.",
-                type=OptionType.string,
-                required=True
-            )
-        ],
-    )
-    @checks.is_owner()
-    async def say(self, interaction: ApplicationCommandInteraction, message: str) -> None:
-        """
-        The bot will say anything you want.
-        :param interaction: The application command interaction.
-        :param message: The message that should be repeated by the bot.
-        """
-        await interaction.send(message)
-
-    @commands.slash_command(
-        name="embed",
-        description="The bot will say anything you want, but within embeds.",
-        options=[
-            Option(
-                name="message",
-                description="The message you want me to repeat.",
-                type=OptionType.string,
-                required=True
-            )
-        ],
-    )
-    @checks.is_owner()
-    async def embed(self, interaction: ApplicationCommandInteraction, message: str) -> None:
-        """
-        The bot will say anything you want, but using embeds.
-        :param interaction: The application command interaction.
-        :param message: The message that should be repeated by the bot.
-        """
-        embed = disnake.Embed(
-            description=message,
-            color=0x9C84EF
-        )
-        await interaction.send(embed=embed)
-
     @commands.slash_command(
         name="blacklist",
         description="lista de todos os usuários na blacklist",
@@ -97,7 +33,7 @@ class Owner(commands.Cog, name="owner-slash"):
     @blacklist.sub_command(
         base="blacklist",
         name="add",
-        description="Adicione um usuário à blacklist",
+        description="Adicione um usuário à blacklist.",
         options=[
             Option(
                 name="user",

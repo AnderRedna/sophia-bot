@@ -100,33 +100,6 @@ class Fun(commands.Cog, name="fun-slash"):
         self.bot = bot
 
     @commands.slash_command(
-        name="randomfact",
-        description="Get a random fact."
-    )
-    @checks.not_blacklisted()
-    async def randomfact(self, interaction: ApplicationCommandInteraction) -> None:
-        """
-        Get a random fact.
-        :param interaction: The application command interaction.
-        """
-        # This will prevent your bot from stopping everything when doing a web request - see: https://discordpy.readthedocs.io/en/stable/faq.html#how-do-i-make-a-web-request
-        async with aiohttp.ClientSession() as session:
-            async with session.get("https://uselessfacts.jsph.pl/random.json?language=en") as request:
-                if request.status == 200:
-                    data = await request.json()
-                    embed = disnake.Embed(
-                        description=data["text"],
-                        color=0xD75BF4
-                    )
-                else:
-                    embed = disnake.Embed(
-                        title="Error!",
-                        description="There is something wrong with the API, please try again later",
-                        color=0xE02B2B
-                    )
-                await interaction.send(embed=embed)
-
-    @commands.slash_command(
         name="moeda",
         description="Vamos jogar a moeda, lembre-se, isso é sagrado!!."
     )
@@ -159,7 +132,7 @@ class Fun(commands.Cog, name="fun-slash"):
 
     @commands.slash_command(
         name="ppt",
-        description="Shophia irá jogar pedra papel e tesoura com você."
+        description="Sophia irá jogar pedra papel e tesoura com você."
     )
     @checks.not_blacklisted()
     async def rock_paper_scissors(self, interaction: ApplicationCommandInteraction) -> None:

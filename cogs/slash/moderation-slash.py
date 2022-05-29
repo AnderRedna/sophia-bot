@@ -19,17 +19,17 @@ class Moderation(commands.Cog, name="moderation-slash"):
 
     @commands.slash_command(
         name="kick",
-        description="Kick a user out of the server.",
+        description="Chute um usuário para fora do servidor.",
         options=[
             Option(
                 name="user",
-                description="The user you want to kick.",
+                description="Usuário que você deseja chutar.",
                 type=OptionType.user,
                 required=True
             ),
             Option(
                 name="reason",
-                description="The reason you kicked the user.",
+                description="Razão",
                 type=OptionType.string,
                 required=False
             )
@@ -82,62 +82,18 @@ class Moderation(commands.Cog, name="moderation-slash"):
                 await interaction.send(embed=embed)
 
     @commands.slash_command(
-        name="nick",
-        description="Change the nickname of a user on a server.",
-        options=[
-            Option(
-                name="user",
-                description="The user you want to change the nickname.",
-                type=OptionType.user,
-                required=True
-            ),
-            Option(
-                name="nickname",
-                description="The new nickname of the user.",
-                type=OptionType.string,
-                required=False
-            )
-        ],
-    )
-    @commands.has_permissions(manage_nicknames=True)
-    @checks.not_blacklisted()
-    async def nick(self, interaction: ApplicationCommandInteraction, user: disnake.User, nickname: str = None) -> None:
-        """
-        Change the nickname of a user on a server.
-        :param interaction: The application command interaction.
-        :param user: The user that should have its nickname changed.
-        :param nickname: The new nickname of the user. Default is None, which will reset the nickname.
-        """
-        member = await interaction.guild.get_or_fetch_member(user.id)
-        try:
-            await member.edit(nick=nickname)
-            embed = disnake.Embed(
-                title="Changed Nickname!",
-                description=f"**{member}'s** new nickname is **{nickname}**!",
-                color=0x9C84EF
-            )
-            await interaction.send(embed=embed)
-        except:
-            embed = disnake.Embed(
-                title="Error!",
-                description="An error occurred while trying to change the nickname of the user. Make sure my role is above the role of the user you want to change the nickname.",
-                color=0xE02B2B
-            )
-            await interaction.send(embed=embed)
-
-    @commands.slash_command(
         name="ban",
-        description="Bans a user from the server.",
+        description="Banir um usuário do servidor.",
         options=[
             Option(
                 name="user",
-                description="The user you want to ban.",
+                description="Usuário que você deseja banir",
                 type=OptionType.user,
                 required=True
             ),
             Option(
-                name="reason",
-                description="The reason you banned the user.",
+                name="razão",
+                description="Razão do banimento do usuário",
                 type=OptionType.string,
                 required=False
             )
@@ -146,7 +102,7 @@ class Moderation(commands.Cog, name="moderation-slash"):
     @commands.has_permissions(ban_members=True)
     @checks.not_blacklisted()
     async def ban(self, interaction: ApplicationCommandInteraction, user: disnake.User,
-                  reason: str = "Not specified") -> None:
+                  reason: str = "Não especificada") -> None:
         """
         Bans a user from the server.
         :param interaction: The application command interaction.
@@ -157,49 +113,49 @@ class Moderation(commands.Cog, name="moderation-slash"):
         try:
             if member.guild_permissions.administrator:
                 embed = disnake.Embed(
-                    title="Error!",
-                    description="User has Admin permissions.",
+                    title="Erro!",
+                    description="Usuário possui permissões de administrador",
                     color=0xE02B2B
                 )
                 await interaction.send(embed=embed)
             else:
                 embed = disnake.Embed(
-                    title="User Banned!",
-                    description=f"**{member}** was banned by **{interaction.author}**!",
+                    title="Usuário BANIDO!",
+                    description=f"**{member}** foi banido por **{interaction.author}**!",
                     color=0x9C84EF
                 )
                 embed.add_field(
-                    name="Reason:",
+                    name="Razão:",
                     value=reason
                 )
                 await interaction.send(embed=embed)
                 try:
-                    await member.send(f"You were banned by **{interaction.author}**!\nReason: {reason}")
+                    await member.send(f"Você foi banido por **{interaction.author}**!\nRazão: {reason}")
                 except disnake.Forbidden:
                     # Couldn't send a message in the private messages of the user
                     pass
                 await member.ban(reason=reason)
         except:
             embed = disnake.Embed(
-                title="Error!",
-                description="An error occurred while trying to ban the user. Make sure my role is above the role of the user you want to ban.",
+                title="Erro!",
+                description="Erro ao banir o usuário, certifique se o usuário possui um cargo maior que o seu",
                 color=0xE02B2B
             )
             await interaction.send(embed=embed)
 
     @commands.slash_command(
         name="warn",
-        description="Warns a user in the server.",
+        description="Envie um aviso para algum usuário do servidor.",
         options=[
             Option(
                 name="user",
-                description="The user you want to warn.",
+                description="Usuário que você deseja enviar o aviso.",
                 type=OptionType.user,
                 required=True
             ),
             Option(
                 name="reason",
-                description="The reason you warned the user.",
+                description="Motivo do aviso.",
                 type=OptionType.string,
                 required=False
             )
@@ -207,8 +163,9 @@ class Moderation(commands.Cog, name="moderation-slash"):
     )
     @commands.has_permissions(manage_messages=True)
     @checks.not_blacklisted()
-    async def warn(self, interaction: ApplicationCommandInteraction, user: disnake.User,
+    async def warn(self, interaction: ApplicationCommandInteraction, user: disnake.User,        
                    reason: str = "Not specified") -> None:
+
         """
         Warns a user in his private messages.
         :param interaction: The application command interaction.
@@ -218,27 +175,27 @@ class Moderation(commands.Cog, name="moderation-slash"):
         member = await interaction.guild.get_or_fetch_member(user.id)
         embed = disnake.Embed(
             title="User Warned!",
-            description=f"**{member}** was warned by **{interaction.author}**!",
+            description=f"**{member}** foi avisado por **{interaction.author}**!",
             color=0x9C84EF
         )
         embed.add_field(
-            name="Reason:",
+            name="Razão:",
             value=reason
-        )
+        )          
         await interaction.send(embed=embed)
-        try:
-            await member.send(f"You were warned by **{interaction.author}**!\nReason: {reason}")
+        try:       
+            await member.send(f"Você recebeu um aviso de **{interaction.author}**!\nRazão: {reason}", file=disnake.File('images/warn1.png'))            
         except disnake.Forbidden:
-            # Couldn't send a message in the private messages of the user
-            await interaction.send(f"{member.mention}, you were warned by **{interaction.author}**!\nReason: {reason}")
-
+            # Couldn't send a message in the private messages of the user           
+            await interaction.send(f"{member.mention}, você recebeu um aviso de **{interaction.author}**!\nRazão: {reason}", file=disnake.File('images/warn1.png'))       
+               
     @commands.slash_command(
         name="purge",
-        description="Delete a number of messages.",
+        description="Delete um número determinado de mensagens",
         options=[
             Option(
                 name="amount",
-                description="The amount of messages you want to delete. (Must be between 1 and 100.)",
+                description="Quantidade de mensagens que você deseja deletar. (Entre 1 a 100.)",
                 type=OptionType.integer,
                 required=True,
                 min_value=1,
@@ -257,25 +214,25 @@ class Moderation(commands.Cog, name="moderation-slash"):
         """
         purged_messages = await interaction.channel.purge(limit=amount)
         embed = disnake.Embed(
-            title="Chat Cleared!",
-            description=f"**{interaction.author}** cleared **{len(purged_messages)}** messages!",
+            title="Chat limpo!",
+            description=f"**{interaction.author}** mensagens removidas:  **{len(purged_messages)}**",
             color=0x9C84EF
         )
         await interaction.send(embed=embed)
 
     @commands.slash_command(
         name="hackban",
-        description="Bans a user without the user having to be in the server.",
+        description="Banir um usuário sem que o mesmo esteja no servidor.",
         options=[
             Option(
                 name="user_id",
-                description="The ID of the user that should be banned.",
+                description="ID do usuário que você deseja banir.",
                 type=OptionType.string,
                 required=True
             ),
             Option(
                 name="reason",
-                description="The reason you banned the user.",
+                description="Razão do banimento.",
                 type=OptionType.string,
                 required=False
             )
